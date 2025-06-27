@@ -1,0 +1,19 @@
+[project]
+name = "aragorn1025-tw-stock-crawler"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "aragorn1025",email = "tzjie.dai@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+]
+
+[tool.poetry]
+package-mode = false
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
