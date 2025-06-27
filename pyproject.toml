@@ -23,3 +23,34 @@ isort = "^6.0.1"
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+target-version = ["py313"]
+skip-string-normalization = false
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | build
+  | dist
+  | __pycache__
+  | \.mypy_cache
+  | \.pytest_cache
+  | .*/migrations
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 120
+combine_as_imports = true
+skip = [
+  ".venv",
+  "build",
+  "dist",
+  "__pycache__",
+  ".mypy_cache",
+  ".pytest_cache",
+  "migrations",
+]
