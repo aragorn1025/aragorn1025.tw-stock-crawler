@@ -1,9 +1,10 @@
+import argparse
 import collections
 import time
 
 import pandas as pd
 import urllib3
-import argparse
+
 from twse.services import TWSECrawler
 from utils import convert_roc_date, get_months
 
