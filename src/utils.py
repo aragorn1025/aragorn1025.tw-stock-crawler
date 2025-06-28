@@ -1,6 +1,11 @@
 import datetime
 
 
+def convert_roc_date(roc_date: str) -> datetime.date:
+    roc_year, month, day = map(int, roc_date.split("/"))
+    return datetime.date(roc_year + 1911, month, day)
+
+
 def get_months(year: int) -> list[int]:
     today = datetime.date.today()
     if today.year < year:
