@@ -13,6 +13,7 @@ def crawl_all_data(
     stock_numbers: list[str],
     year: int,
     months: list[int] = None,
+    sleep_time: int = 3,
 ) -> dict[str, list[list[str]]]:
     if not months:
         months = get_months(year)
@@ -22,7 +23,7 @@ def crawl_all_data(
         data = all_data[stock_number]
         for month in months:
             data.extend(crawler.crawl(stock_number, year, month))
-            time.sleep(3)
+            time.sleep(sleep_time)
     return all_data
 
 
