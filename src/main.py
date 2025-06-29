@@ -1,3 +1,5 @@
+"""Crawl stock data from TWSE and save as a CSV file."""
+
 import argparse
 import collections
 import time
@@ -15,6 +17,28 @@ def crawl_all_data(
     months: list[int] = None,
     sleep_time: int = 3,
 ) -> dict[str, list[list[str]]]:
+    """Crawl stock data for multiple stock numbers and a specific year.
+
+    Parameters:
+        stock_numbers (list[str]):
+            The list of stock numbers to crawl data for.
+        year (int):
+            The year in AD to crawl data for.
+        months (list[int], optional):
+            The list of months to crawl data for. If None, all available months of the year will be used.
+        sleep_time (int, optional):
+            The sleep time between requests in seconds. Default is 3 seconds.
+    Returns:
+        dict[str, list[list[str]]]:
+            A dictionary where keys are stock numbers and values are lists of the stock data.
+    Raises:
+        ValueError:
+            If the year is in the future.
+        TWSEAPIError:
+            If the API request fails.
+        TWSEDataError:
+            If the data returned by the API is not valid.
+    """
     if not months:
         months = get_months(year)
     crawler = TWSECrawler()
@@ -28,6 +52,14 @@ def crawl_all_data(
 
 
 def convert_to_data_frame(all_data: dict[str, list[list[str]]]) -> pd.DataFrame:
+    """Convert crawled stock data to a pandas DataFrame.
+    Parameters:
+        all_data (dict[str, list[list[str]]]):
+            A dictionary where keys are stock numbers and values are lists of the stock data.
+    Returns:
+        pandas.DataFrame:
+            A DataFrame with dates as the index and stock prices as columns.
+    """
     dfs = []
     for stock_number, data in all_data.items():
         df = pd.DataFrame(data, columns=["date", stock_number])

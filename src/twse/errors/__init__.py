@@ -1,3 +1,5 @@
+"""Module for TWSE error classes."""
+
 __all__ = [
     "TWSEAPIError",
     "TWSEDataError",

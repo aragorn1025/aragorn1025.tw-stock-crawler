@@ -1,3 +1,5 @@
+"""Module for TWSE stock data crawler."""
+
 __all__ = [
     "TWSEAPIError",
     "TWSECrawler",
