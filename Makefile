@@ -3,7 +3,8 @@ install:
 .PHONY: install
 
 lint:
-	poetry run isort .
-	poetry run black .
-	poetry run flake8 .
+	poetry run isort src/
+	poetry run black src/
+	poetry run flake8 src/
+	poetry run pylint src/
 .PHONY: lint

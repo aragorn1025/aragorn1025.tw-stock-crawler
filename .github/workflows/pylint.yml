@@ -1,0 +1,44 @@
+name: Python linters
+
+on: [pull_request]
+
+env:
+  PYTHON_VERSION: "3.13"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cache poetry and pip cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/pypoetry
+            ~/.cache/pip
+          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-poetry-
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Install poetry
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+      - name: Install dependencies
+        run: |
+          poetry install --no-interaction --no-root
+      - name: Run `Black`
+        run: |
+          poetry run black --check src/
+      - name: Run `isort`
+        run: |
+          poetry run isort --check-only src/
+      - name: Run `flake8`
+        run: |
+          poetry run flake8 src/
+      - name: Run `pylint`
+        run: |
+          poetry run pylint src/
