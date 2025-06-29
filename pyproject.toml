@@ -56,3 +56,6 @@ skip = [
   ".pytest_cache",
   "migrations",
 ]
+
+[tool.pylint.format]
+max-line-length = 120
