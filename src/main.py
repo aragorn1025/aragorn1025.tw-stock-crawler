@@ -84,9 +84,8 @@ if __name__ == "__main__":
         "-s",
         "--stock_numbers",
         type=str,
-        nargs="+",
         required=True,
-        help="Stock numbers, separated by space (e.g., 0050 006208)",
+        help="Stock numbers, separated by commas (e.g., 0050,006208)",
     )
     parser.add_argument(
         "-y",
@@ -105,6 +104,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-    all_stock_data = crawl_all_data(stock_numbers=args.stock_numbers, year=args.year)
+    all_stock_data = crawl_all_data(stock_numbers=args.stock_numbers.split(","), year=args.year)
     result = convert_to_data_frame(all_stock_data)
     result.to_csv(args.output, encoding="utf-8")
