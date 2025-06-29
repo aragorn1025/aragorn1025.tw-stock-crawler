@@ -57,5 +57,8 @@ skip = [
   "migrations",
 ]
 
+[tool.pylint.main]
+generated-members = ["pandas.*"]
+
 [tool.pylint.format]
 max-line-length = 120
