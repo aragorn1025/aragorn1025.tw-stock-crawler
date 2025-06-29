@@ -34,4 +34,7 @@ RUN if [ "$MODE" = "production" ]; then \
     fi
 COPY . .
 
+HEALTHCHECK --interval=300s --timeout=5s --start-period=10s --retries=3 \
+    CMD poetry run python --version || exit 1
+
 CMD ["bash"]
