@@ -8,3 +8,7 @@ lint:
 	poetry run flake8 src/
 	poetry run pylint src/
 .PHONY: lint
+
+clean:
+	poetry env remove --all
+.PHONY: clean
