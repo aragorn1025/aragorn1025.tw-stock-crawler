@@ -1,3 +1,7 @@
+# data
+data/
+**/*.csv
+
 # docker
 .dockerignore
 Dockerfile
