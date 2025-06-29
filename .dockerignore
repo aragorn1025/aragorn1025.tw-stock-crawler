@@ -5,6 +5,7 @@ data/
 # docker
 .dockerignore
 Dockerfile
+docker-compose.yml
 
 # git
 .git/
@@ -24,4 +25,5 @@ Dockerfile
 # others
 **/*.thumbs
 **/.DS_Store
+Makefile
 README.md
