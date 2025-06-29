@@ -73,6 +73,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-    all_data = crawl_all_data(stock_numbers=args.stock_numbers, year=args.year)
-    result = convert_to_data_frame(all_data)
+    all_stock_data = crawl_all_data(stock_numbers=args.stock_numbers, year=args.year)
+    result = convert_to_data_frame(all_stock_data)
     result.to_csv(args.output, encoding="utf-8")
