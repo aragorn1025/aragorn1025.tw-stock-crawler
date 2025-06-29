@@ -1,6 +1,12 @@
 name: Python linters
 
-on: [pull_request]
+on:
+  pull_request:
+    branches:
+      - "*"
+  push:
+    branches:
+      - main
 
 env:
   PYTHON_VERSION: "3.13"
