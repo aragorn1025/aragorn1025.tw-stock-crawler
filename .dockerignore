@@ -1,0 +1,23 @@
+# docker
+.dockerignore
+Dockerfile
+
+# git
+.git/
+.github/
+.gitignore
+
+# python
+**/*.pyc
+**/*.pyo
+**/*.pyd
+**/__pycache__/
+.venv/
+
+# vscode
+.vscode/
+
+# others
+**/*.thumbs
+**/.DS_Store
+README.md
