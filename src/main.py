@@ -28,7 +28,7 @@ def crawl_all_data(
 
 
 def convert_to_data_frame(all_data: dict[str, list[list[str]]]) -> pd.DataFrame:
-    dfs = list()
+    dfs = []
     for stock_number, data in all_data.items():
         df = pd.DataFrame(data, columns=["date", stock_number])
         df["date"] = df["date"].apply(convert_roc_date)
