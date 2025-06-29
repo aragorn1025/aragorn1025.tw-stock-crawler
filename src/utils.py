@@ -1,8 +1,8 @@
 import datetime
 
 
-def convert_roc_date(roc_date: str) -> datetime.date:
-    roc_year, month, day = map(int, roc_date.split("/"))
+def convert_roc_date(roc_date: str, separator: str = "/") -> datetime.date:
+    roc_year, month, day = map(int, roc_date.split(separator))
     return datetime.date(roc_year + 1911, month, day)
 
 
