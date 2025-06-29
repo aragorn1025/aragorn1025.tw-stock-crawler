@@ -1,0 +1,14 @@
+services:
+  tw-stock-crawler:
+    image: aragorn1025.tw-stock-crawler:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        MODE: ${MODE:-dev}
+        POETRY_VERSION: ${POETRY_VERSION:-2.1.2}
+    volumes:
+      - ./src:/app/src
+      - ./data:/app/data
+    tty: true
+    stdin_open: true

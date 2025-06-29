@@ -34,5 +34,4 @@ RUN if [ "$MODE" = "production" ]; then \
     fi
 COPY . .
 
-ENTRYPOINT ["poetry", "run", "python", "src/main.py"]
-CMD ["--help"]
+CMD ["bash"]
