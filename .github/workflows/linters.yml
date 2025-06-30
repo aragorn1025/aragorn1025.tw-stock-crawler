@@ -14,7 +14,8 @@ jobs:
     env:
       PYTHON_VERSION: "3.13"
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Cache poetry and pip cache
         uses: actions/cache@v3
         with:
