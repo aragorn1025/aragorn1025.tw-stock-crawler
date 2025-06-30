@@ -8,12 +8,11 @@ on:
     branches:
       - main
 
-env:
-  PYTHON_VERSION: "3.13"
-
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      PYTHON_VERSION: "3.13"
     steps:
       - uses: actions/checkout@v4
       - name: Cache poetry and pip cache
