@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
     env:
       PYTHON_VERSION: "3.13"
