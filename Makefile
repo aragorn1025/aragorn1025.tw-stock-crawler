@@ -29,6 +29,7 @@ run:
 			$(if ${MONTHS},--months ${MONTHS}) \
 			$(if ${OUTPUT},--output ${OUTPUT})
 .PHONY: run
+.SILENT: run
 
 down:
 	docker compose down
