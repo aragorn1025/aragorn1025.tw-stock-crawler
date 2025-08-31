@@ -21,15 +21,15 @@ up:
 	docker compose up
 .PHONY: up
 
-OUTPUT ?= data/output.csv
-
 run:
 	docker compose exec tw-stock-crawler \
 		poetry run python src/main.py \
 			--stock_numbers ${STOCK_NUMBERS} \
-			--year ${YEAR} \
-			--output ${OUTPUT}
+			$(if ${YEAR},--year ${YEAR}) \
+			$(if ${MONTHS},--months ${MONTHS}) \
+			$(if ${OUTPUT},--output ${OUTPUT})
 .PHONY: run
+.SILENT: run
 
 down:
 	docker compose down

@@ -18,6 +18,15 @@ def convert_roc_date(roc_date: str, separator: str = "/") -> datetime.date:
     return datetime.date(roc_year + 1911, month, day)
 
 
+def get_year() -> int:
+    """Get the current year in AD.
+    Returns:
+        int:
+            The current year in AD.
+    """
+    return datetime.date.today().year
+
+
 def get_months(year: int) -> list[int]:
     """Get the months available for a given year.
     Parameters:
