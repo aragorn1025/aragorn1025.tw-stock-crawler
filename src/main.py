@@ -103,6 +103,13 @@ if __name__ == "__main__":
         help="Year in AD (e.g., 2025)",
     )
     parser.add_argument(
+        "-m",
+        "--months",
+        type=str,
+        default="",
+        help="Months, separated by commas (e.g., 3,4,5). If not given, all available months of the year will be used.",
+    )
+    parser.add_argument(
         "-o",
         "--output",
         type=str,
@@ -115,6 +122,7 @@ if __name__ == "__main__":
     all_stock_data = crawl_all_data(
         stock_numbers=args.stock_numbers.split(","),
         year=int(args.year),
+        months=[int(m) for m in args.months.split(",")] if args.months else None,
     )
     result = convert_to_data_frame(all_stock_data)
     result.to_csv(args.output, encoding="utf-8")
