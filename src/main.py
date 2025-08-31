@@ -9,7 +9,7 @@ import pandas as pd
 import urllib3
 
 from twse.services import TWSECrawler
-from utils import convert_roc_date, get_months
+from utils import convert_roc_date, get_months, get_year
 
 logging.basicConfig(
     datefmt="%Y-%m-%dT%H:%M:%SZ",
@@ -20,7 +20,7 @@ logging.basicConfig(
 
 def crawl_all_data(
     stock_numbers: list[str],
-    year: int,
+    year: int = None,
     months: list[int] = None,
     sleep_time: int = 3,
 ) -> dict[str, list[list[str]]]:
@@ -29,8 +29,8 @@ def crawl_all_data(
     Parameters:
         stock_numbers (list[str]):
             The list of stock numbers to crawl data for.
-        year (int):
-            The year in AD to crawl data for.
+        year (int, optional):
+            The year in AD to crawl data for. If None, the current year will be used.
         months (list[int], optional):
             The list of months to crawl data for. If None, all available months of the year will be used.
         sleep_time (int, optional):
@@ -46,6 +46,8 @@ def crawl_all_data(
         TWSEDataError:
             If the data returned by the API is not valid.
     """
+    if not year:
+        year = get_year()
     if not months:
         months = get_months(year)
     logging.info("Crawling data for %s in %s/%s", stock_numbers, year, months)
@@ -99,8 +101,8 @@ if __name__ == "__main__":
         "-y",
         "--year",
         type=str,
-        required=True,
-        help="Year in AD (e.g., 2025)",
+        default="",
+        help="Year in AD (e.g., 2025). If not given, the current year will be used.",
     )
     parser.add_argument(
         "-m",
@@ -121,7 +123,7 @@ if __name__ == "__main__":
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     all_stock_data = crawl_all_data(
         stock_numbers=args.stock_numbers.split(","),
-        year=int(args.year),
+        year=int(args.year) if args.year else None,
         months=[int(m) for m in args.months.split(",")] if args.months else None,
     )
     result = convert_to_data_frame(all_stock_data)
