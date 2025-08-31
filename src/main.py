@@ -115,7 +115,7 @@ if __name__ == "__main__":
         "-o",
         "--output",
         type=str,
-        default="output.csv",
+        default="data/output.csv",
         help="Output CSV file name (default: output.csv)",
     )
     args = parser.parse_args()
