@@ -98,7 +98,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "-y",
         "--year",
-        type=int,
+        type=str,
         required=True,
         help="Year in AD (e.g., 2025)",
     )
@@ -114,7 +114,7 @@ if __name__ == "__main__":
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
     all_stock_data = crawl_all_data(
         stock_numbers=args.stock_numbers.split(","),
-        year=args.year,
+        year=int(args.year),
     )
     result = convert_to_data_frame(all_stock_data)
     result.to_csv(args.output, encoding="utf-8")
