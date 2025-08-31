@@ -2,6 +2,7 @@
 
 import argparse
 import collections
+import logging
 import time
 
 import pandas as pd
@@ -9,6 +10,12 @@ import urllib3
 
 from twse.services import TWSECrawler
 from utils import convert_roc_date, get_months
+
+logging.basicConfig(
+    datefmt="%Y-%m-%dT%H:%M:%SZ",
+    format="[%(asctime)s][%(levelname).1s] %(message)s",
+    level=logging.INFO,
+)
 
 
 def crawl_all_data(
@@ -41,6 +48,7 @@ def crawl_all_data(
     """
     if not months:
         months = get_months(year)
+    logging.info("Crawling data for %s in %s/%s", stock_numbers, year, months)
     crawler = TWSECrawler()
     all_data = collections.defaultdict(list)
     for stock_number in stock_numbers:
