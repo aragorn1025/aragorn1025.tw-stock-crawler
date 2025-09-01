@@ -60,5 +60,8 @@ skip = [
 [tool.pylint.main]
 generated-members = ["pandas.*"]
 
+[tool.pylint.design]
+min-public-methods = 1
+
 [tool.pylint.format]
 max-line-length = 120
