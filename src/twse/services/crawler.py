@@ -5,7 +5,6 @@ import requests
 from ..errors import TWSEAPIError, TWSEDataError
 
 
-# pylint: disable=too-few-public-methods
 class TWSECrawler:
     """Data crawler for TWSE stock price.
 
