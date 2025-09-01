@@ -8,6 +8,7 @@ import time
 import pandas as pd
 import urllib3
 
+from settings import settings
 from twse.services import TWSECrawler
 from utils import convert_roc_date, get_months, get_year
 
@@ -111,13 +112,6 @@ if __name__ == "__main__":
         default="",
         help="Months, separated by commas (e.g., 3,4,5). If not given, all available months of the year will be used.",
     )
-    parser.add_argument(
-        "-o",
-        "--output",
-        type=str,
-        default="data/output.csv",
-        help="Output CSV file name (default: output.csv)",
-    )
     args = parser.parse_args()
 
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -126,5 +120,6 @@ if __name__ == "__main__":
         year=int(args.year) if args.year else None,
         months=[int(m) for m in args.months.split(",")] if args.months else None,
     )
-    result = convert_to_data_frame(all_stock_data)
-    result.to_csv(args.output, encoding="utf-8")
+    if settings.is_output_csv:
+        result = convert_to_data_frame(all_stock_data)
+        result.to_csv(settings.csv_path, encoding="utf-8")
