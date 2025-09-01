@@ -7,6 +7,9 @@ data/
 Dockerfile
 docker-compose.yml
 
+# environment variables
+.envs/
+
 # git
 .git/
 .github/
@@ -17,6 +20,7 @@ docker-compose.yml
 **/*.pyo
 **/*.pyd
 **/__pycache__/
+.flake8
 .venv/
 
 # vscode

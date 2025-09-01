@@ -26,8 +26,7 @@ run:
 		poetry run python src/main.py \
 			--stock_numbers ${STOCK_NUMBERS} \
 			$(if ${YEAR},--year ${YEAR}) \
-			$(if ${MONTHS},--months ${MONTHS}) \
-			$(if ${OUTPUT},--output ${OUTPUT})
+			$(if ${MONTHS},--months ${MONTHS})
 .PHONY: run
 .SILENT: run
 
