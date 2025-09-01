@@ -7,6 +7,9 @@ data/
 Dockerfile
 docker-compose.yml
 
+# environment variables
+.envs/
+
 # git
 .git/
 .github/
