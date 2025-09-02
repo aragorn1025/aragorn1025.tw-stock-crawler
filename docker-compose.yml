@@ -9,6 +9,7 @@ services:
         POETRY_VERSION: ${POETRY_VERSION:-2.1.2}
     env_file: ./.envs/.env
     volumes:
+      - ./.creds:/app/.creds
       - ./src:/app/src
       - ./data:/app/data
     tty: true

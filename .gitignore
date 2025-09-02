@@ -220,5 +220,8 @@ __marimo__/
 # mac OS
 .DS_Store
 
+# Credentials
+.creds/*.json
+
 # Output files
 *.csv
