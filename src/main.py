@@ -120,6 +120,6 @@ if __name__ == "__main__":
         year=int(args.year) if args.year else None,
         months=[int(m) for m in args.months.split(",")] if args.months else None,
     )
+    result = convert_to_data_frame(all_stock_data)
     if settings.is_output_csv:
-        result = convert_to_data_frame(all_stock_data)
         result.to_csv(settings.csv_path, encoding="utf-8")
