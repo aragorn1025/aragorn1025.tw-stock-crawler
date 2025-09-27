@@ -61,7 +61,10 @@ skip = [
 ]
 
 [tool.pylint.main]
-generated-members = ["pandas.*"]
+generated-members = [
+  "googleapiclient.discovery.*",
+  "pandas.*", 
+]
 
 [tool.pylint.design]
 min-public-methods = 1

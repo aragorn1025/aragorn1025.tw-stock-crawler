@@ -2,6 +2,7 @@
 
 import argparse
 import collections
+import datetime
 import logging
 import time
 
@@ -9,7 +10,7 @@ import pandas as pd
 import urllib3
 
 from settings import settings
-from twse.services import TWSECrawler
+from twse.services import GSheetService, TWSECrawler
 from utils import convert_roc_date, get_months, get_year
 
 logging.basicConfig(
@@ -123,3 +124,47 @@ if __name__ == "__main__":
     result = convert_to_data_frame(all_stock_data)
     if settings.is_output_csv:
         result.to_csv(settings.csv_path, encoding="utf-8")
+    if settings.is_output_gsheet:
+        output = result.copy()
+        output.rename(index=lambda d: (d - datetime.date(1899, 12, 30)).days, inplace=True)
+        output = output.map(lambda p: float(p) if p != "" else p)
+        output_list = output.reset_index().values.tolist()
+
+        service = GSheetService(settings.gsheet_service_account_credentials)
+        service.update(
+            spreadsheet_id=settings.gsheet_spreadsheet_id,
+            sheet_name=settings.gsheet_sheet_name,
+            cells=settings.gsheet_top_left_cell,
+            values=[[""] + result.columns.tolist()] + output_list,  # result.reset_index().astype(str).values.tolist(),
+        )
+        service.spreadsheets.batchUpdate(
+            spreadsheetId=settings.gsheet_spreadsheet_id,
+            body={
+                "requests": [
+                    {
+                        "repeatCell": {
+                            "range": {
+                                "sheetId": 0,
+                                "startRowIndex": 1,  # 從第 2 列開始 (0 = 第1列)
+                                "startColumnIndex": 0,  # A 欄
+                                "endColumnIndex": 1,
+                            },
+                            "cell": {"userEnteredFormat": {"numberFormat": {"type": "DATE", "pattern": "mm/dd/yyyy"}}},
+                            "fields": "userEnteredFormat.numberFormat",
+                        }
+                    },
+                    {
+                        "repeatCell": {
+                            "range": {
+                                "sheetId": 0,
+                                "startRowIndex": 1,  # 從第 2 列開始
+                                "startColumnIndex": 1,  # B 欄
+                                "endColumnIndex": 1 + len(args.stock_numbers.split(",")),
+                            },
+                            "cell": {"userEnteredFormat": {"numberFormat": {"type": "NUMBER", "pattern": "0.00"}}},
+                            "fields": "userEnteredFormat.numberFormat",
+                        }
+                    },
+                ]
+            },
+        ).execute()
